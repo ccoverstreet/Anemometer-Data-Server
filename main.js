@@ -15,11 +15,11 @@ app.post("/", (req, res) => {
 	res.send("good")
 })
 
-app.get("/tester", (req, res) => {
+app.get("/dump", (req, res) => {
 	console.log(req)
 })
 
-app.post("/tester", (req, res) => {
+app.post("/dump", (req, res) => {
 	console.log(req)
 })
 
