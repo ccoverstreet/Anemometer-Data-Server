@@ -11,6 +11,12 @@
   - Wind Gust (m/s)
   - Solar Radiation (W/m^2?)
   - Battery Level (W-hr)
+- Wifi Module Sends Post Request with URL encoded body
+  - For setup:
+    - Enter ip address of this server
+	- Enter path "/dump"
+	- Enter port 8080
+	- Enter interval 60 seconds
 
 Given the above, each timestep requires 72 bytes of memory. Before dumping in a 24 hour period, there would be 103 kB of data in memory. If stored as a CSV, it will take ~240 bytes to store each timestep. The end file size for a 24-hour period would be ~350 kB.
 
