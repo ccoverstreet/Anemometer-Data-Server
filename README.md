@@ -18,6 +18,7 @@
 	- Enter port 8080
 	- Enter interval 60 seconds
 
+! This math is handwavy
 Given the above, each timestep requires 72 bytes of memory. Before dumping in a 24 hour period, there would be 103 kB of data in memory. If stored as a CSV, it will take ~240 bytes to store each timestep. The end file size for a 24-hour period would be ~350 kB.
 
 For analysis, these CSV's will likely be combined into larger chunks and then plotted using Python. 

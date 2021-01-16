@@ -1,3 +1,8 @@
+// data.js: Anemometer Data Handling
+// Cale Overstreet
+// 2020/1/16
+// Responsible for adding and dumping data to file.
+
 const fs = require("fs");
 
 var dataHolder = {};
@@ -28,20 +33,25 @@ function addData(inputData) {
 	dataHolder[id].humidity.push(parseFloat(inputData.humidityin));
 	dataHolder[id].pressure.push(parseFloat(inputData.baromrelin));
 	dataHolder[id].windDir.push(parseFloat(inputData.winddir))
-	dataHolder[id].windSpeed.push(parseFloat(inputData.windspeedmph));
-	dataHolder[id].windGust.push(parseFloat(inputData.windgustmph));
+	dataHolder[id].windSpeed.push(mph2ms(parseFloat(inputData.windspeedmph)));
+	dataHolder[id].windGust.push(mph2ms(parseFloat(inputData.windgustmph)));
 	dataHolder[id].solarRad.push(parseFloat(inputData.solarradiation));
 	dataHolder[id].batLevel.push(parseFloat(inputData.wh68batt));
 }
 
 function dumpToFile() {
+	dumpTime = new Date().toLocaleTimeString("SV-se").replaceAll(":", "-");
+
 	keys = Object.keys(dataHolder);
 	for (key of keys) {
-		createCSV(dataHolder[key]);
+		createCSV(dataHolder[key], dumpTime);
 	}
+
+	dataHolder = {};
 }
 
-function createCSV(anem) {
+function createCSV(anem, dumpTime) {
+	console.log(`Creating CSV for ${anem.id}`);
 	keys = Object.keys(anem);
 	keys.shift();
 	outputStr = "";
@@ -65,13 +75,15 @@ function createCSV(anem) {
 		outputStr += "\n";
 	}
 
-
-	fs.writeFileSync(`./data/${anem.id}-${new Date().toLocaleDateString("SV-se")}-${new Date().toLocaleTimeString("SV-se").replaceAll(":", "-")}.csv`, outputStr);
-	console.log(outputStr);
+	fs.writeFileSync(`./data/${anem.id}-${new Date().toLocaleDateString("SV-se")}-${dumpTime}.csv`, outputStr);
 }
 
 function FtoC(tempF) {
 	return (tempF - 32.0) * 5.0/9.0;
+}
+
+function mph2ms(mph) {
+	return 0.44704 * mph; // Conversion from Google
 }
 
 function getDataHolder() {
