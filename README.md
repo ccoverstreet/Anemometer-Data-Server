@@ -22,3 +22,8 @@
 Given the above, each timestep requires 72 bytes of memory. Before dumping in a 24 hour period, there would be 103 kB of data in memory. If stored as a CSV, it will take ~240 bytes to store each timestep. The end file size for a 24-hour period would be ~350 kB.
 
 For analysis, these CSV's will likely be combined into larger chunks and then plotted using Python. 
+
+## TODO
+
+- Implement some kind of dashboard that allows you to see status/download data files
+- Create simple Python script to plot all data of a certain prefix
