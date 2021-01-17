@@ -6,6 +6,7 @@
 const express = require("express")
 const bodyParser = require("body-parser")
 const fs = require("fs");
+const zipdir = require("zip-dir");
 const nodeSchedule = require("node-schedule");
 
 const app = express()
@@ -22,8 +23,19 @@ app.use(function (req, res, next) {
 })
 
 app.get("/", (req, res) => {
-	res.send(JSON.stringify(dataHandler.getDataHolder()));
+	res.sendFile(__dirname + "/index.html");
 })
+
+app.post("/currentData", (req, res) => {
+	res.send(JSON.stringify(dataHandler.getDataHolder(), null, 4));
+})
+
+app.get("/zipData", async (req, res) => {
+	buffer = await zipdir(__dirname + "/data");
+	fs.writeFileSync(__dirname + "/alldata.zip", buffer);
+
+	res.sendFile(__dirname + "/alldata.zip");
+});
 
 app.get("/manualDump", (req, res) => {
 	dataHandler.dumpToFile();

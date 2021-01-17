@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script>
+			function getZipData() {
+				document.location.replace("/zipData");
+			}
+
+			function getCurrentData() {
+				fetch("/currentData", {
+					method: "POST"
+				})
+					.then(async data => {
+						const res = await data.text();
+
+						elem = document.getElementById("current_data");
+						elem.innerText = res
+					})
+					.catch(err => {
+						console.log(err);
+					});
+			}
+		</script>
+		<script defer>
+			getCurrentData();
+		</script>
+
+		<style>
+body {
+	font-family: Arial;
+	font-size: 14px;
+}
+		</style>
+	</head>
+	<body>
+		<button onclick="getZipData()">Get Zipped Data</button>
+		<h2>Current Data</h2>
+		<div id="current_data"></div>
+	</body>
+</html>
