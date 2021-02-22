@@ -19,6 +19,7 @@ var dump = nodeSchedule.scheduleJob("0 * * * *", dataHandler.dumpToFile);
 app.use(bodyParser.urlencoded({extended: true}))
 
 app.use(function (req, res, next) {
+	console.log(`[${new Date().toLocaleString("SV-se")}]: ${req.originalUrl}`)
 	next();
 })
 

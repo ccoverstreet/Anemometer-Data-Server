@@ -10,6 +10,8 @@ var dataHolder = {};
 function addData(inputData) {
 	id = inputData.PASSKEY;
 
+	console.log(`[${new Date().toLocaleString("SV-se")}]: ${id} adding data`);
+
 	// Takes request body from http
 	if (dataHolder[id] == undefined) {
 		// If anemometer hasn't submitted data before
