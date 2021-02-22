@@ -11,10 +11,10 @@
 					method: "POST"
 				})
 					.then(async data => {
-						const res = await data.text();
+						const res = await data.json();
 
 						elem = document.getElementById("current_data");
-						elem.innerText = res
+						elem.innerHTML = "<pre>" + JSON.stringify(res, null, 4) + "</pre>";
 					})
 					.catch(err => {
 						console.log(err);
@@ -35,6 +35,6 @@ body {
 	<body>
 		<button onclick="getZipData()">Get Zipped Data</button>
 		<h2>Current Data</h2>
-		<div id="current_data"></div>
+		<div id="current_data" style="whitespace: pre;"></div>
 	</body>
 </html>

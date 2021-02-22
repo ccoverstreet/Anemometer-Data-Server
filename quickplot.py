@@ -80,6 +80,12 @@ def generatePlots(filenames):
     plt.xlabel("Time (seconds since Unix Epoch)")
     plt.show()
 
+    plt.plot(time, gust, "o")
+    plt.title("Anemometer gust speed")
+    plt.ylabel("Gust Speed (m/s)")
+    plt.xlabel("Time (seconds since Unix Epoch)")
+    plt.show()
+
     plt.plot(time, solar_rad, "o")
     plt.title("Anemometer solar radiation")
     plt.ylabel("Need to verify units")
