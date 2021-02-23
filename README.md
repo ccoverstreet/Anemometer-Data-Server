@@ -31,7 +31,17 @@ Given the above, each timestep requires 72 bytes of memory. Before dumping in a 
 
 For analysis, these CSV's will likely be combined into larger chunks and then plotted using Python. 
 
-## TODO
+## Reverse Engineering Results
 
-- Implement some kind of dashboard that allows you to see status/download data files
-- Create simple Python script to plot all data of a certain prefix
+- Wifi module uses a URL-encoded body
+- "Update Interval" setting in custom server does not do anything
+  - Module just seems to send data whenever it wants (~1.5 minute interval)
+- Communicates using UDP?
+  - Wireshark shows a long UDP message being sent to the designated host
+  - Need to analyze a bit further
+- After reset, the wifi module pairs with the first RF anemometer in range
+  - It seems to only trust the initial paired anemometer
+    - Absolutely no documentation
+  - Even if initial anemometer is disabled, the wifi module refuses to listen to others
+    - Works well for my use case
+ 
