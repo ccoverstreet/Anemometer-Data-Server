@@ -44,4 +44,5 @@ For analysis, these CSV's will likely be combined into larger chunks and then pl
     - Absolutely no documentation
   - Even if initial anemometer is disabled, the wifi module refuses to listen to others
     - Works well for my use case
+  - The blue RF light seems to indicate if a device has been paired and if communication is happening
  
