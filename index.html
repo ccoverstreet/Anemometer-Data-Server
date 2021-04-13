@@ -14,7 +14,7 @@
 						const res = await data.json();
 
 						elem = document.getElementById("current_data");
-						elem.innerHTML = "<pre>" + JSON.stringify(res, null, 4) + "</pre>";
+						elem.innerHTML = "<pre>" + JSON.stringify(res, null, 2) + "</pre>";
 					})
 					.catch(err => {
 						console.log(err);
@@ -32,9 +32,13 @@ body {
 }
 		</style>
 	</head>
-	<body>
-		<button onclick="getZipData()">Get Zipped Data</button>
-		<h2>Current Data</h2>
-		<div id="current_data" style="whitespace: pre;"></div>
+	<body style="margin: 0px;">
+		<div style="background-color: #1e2022; width: 100vw; height: 30px;">
+			<button onclick="getZipData()" style="height: 100%; background-color: #32de84; font-size: 16px; font-weight: bold;">Get Zipped Data</button>
+		</div>
+		<div style="padding: 10px;">
+			<h2>Current Data</h2>
+			<div id="current_data" style="whitespace: pre;"></div>
+		</div>
 	</body>
 </html>

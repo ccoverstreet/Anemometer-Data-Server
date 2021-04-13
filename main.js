@@ -14,6 +14,19 @@ const port = 8080
 
 const dataHandler = require("./src/data.js");
 
+// Load passkeys.txt
+// REQUIRED FOR START
+var passkeys = null;
+try {
+	passkeyFData = fs.readFileSync("./passkeys.txt").toString();
+	passkeys = passkeyFData.split("\n").filter(function(e) {
+		return e != "";
+	});
+} catch(e) {
+	console.error(e);
+	process.exit();
+}
+
 var dump = nodeSchedule.scheduleJob("0 * * * *", dataHandler.dumpToFile);
 
 app.use(bodyParser.urlencoded({extended: true}))
@@ -44,6 +57,14 @@ app.get("/manualDump", (req, res) => {
 }) 
 
 app.post("/dump", (req, res) => {
+	// First check if PASSKEY is in 
+	// passkeys
+	
+	if (!passkeys.includes(req.body.PASSKEY)) {
+		res.status(404).send("Not found.");	
+		return;
+	}
+
 	console.log(req.body);
 	dataHandler.addData(req.body);
 })
