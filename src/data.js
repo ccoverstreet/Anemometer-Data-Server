@@ -42,7 +42,7 @@ function addData(inputData) {
 }
 
 function dumpToFile() {
-	dumpTime = new Date().toLocaleTimeString("SV-se").replaceAll(":", "-");
+	dumpTime = new Date().toLocaleTimeString("SV-se").replace(/:/g, "-");
 
 	keys = Object.keys(dataHolder);
 	for (key of keys) {
