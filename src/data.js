@@ -30,7 +30,7 @@ function addData(inputData) {
 	} 
 	
 	// Push all data into arrays
-	dataHolder[id].unixTimes.push(new Date(inputData.dateutc).getTime() / 1000)
+	dataHolder[id].unixTimes.push(Math.round(Date.now() / 1000))
 	dataHolder[id].temp.push(FtoC(parseFloat(inputData.tempinf)));
 	dataHolder[id].humidity.push(parseFloat(inputData.humidityin));
 	dataHolder[id].pressure.push(parseFloat(inputData.baromrelin));
