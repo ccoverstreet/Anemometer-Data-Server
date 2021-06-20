@@ -9,8 +9,7 @@
 			}
 
 			function toDateTime(unixTimes) {
-				dates = unixTimes;
-
+				dates = unixTimes.slice();
 
 				for (var i = 0; i < unixTimes.length; i++) {
 					console.log(i);
