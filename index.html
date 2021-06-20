@@ -2,9 +2,22 @@
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="https://cdn.plot.ly/plotly-2.0.0.min.js"></script>
 		<script>
 			function getZipData() {
 				document.location.replace("/zipData");
+			}
+
+			function toDateTime(unixTimes) {
+				dates = unixTimes;
+
+
+				for (var i = 0; i < unixTimes.length; i++) {
+					console.log(i);
+					dates[i] = (new Date(unixTimes[i] * 1000)).toLocaleTimeString() ;
+				}
+
+				return dates;
 			}
 
 			function getCurrentData() {
@@ -13,6 +26,32 @@
 				})
 					.then(async data => {
 						const res = await data.json();
+
+						holder = document.getElementById("plotholder");
+
+						for (id in res) {
+							plotdiv = document.createElement("div");
+							plotdiv.id = id;
+							holder.appendChild(plotdiv);
+
+							layout = {
+								title: `Wind Speed for ${id}`,
+								yaxis: {
+									title: "Wind Speed (m/s)"
+								},
+								margin: {
+									l: 75,
+									r: 25,
+									b: 100,
+									t: 100
+								}
+							}
+
+							Plotly.newPlot(plotdiv, [{
+								x: toDateTime(res[id].unixTimes),
+								y: res[id].windSpeed,
+							}], layout, {responsive: true});
+						}
 
 						elem = document.getElementById("current_data");
 						elem.innerHTML = "<pre>" + JSON.stringify(res, null, 2) + "</pre>";
@@ -36,6 +75,8 @@ body {
 	<body style="margin: 0px;">
 		<div style="background-color: #1e2022; width: 100vw; height: 30px;">
 			<button onclick="getZipData()" style="height: 100%; background-color: #32de84; font-size: 16px; font-weight: bold;">Get Zipped Data</button>
+		</div>
+		<div id="plotholder">
 		</div>
 		<div style="padding: 10px;">
 			<h2>Current Data</h2>
